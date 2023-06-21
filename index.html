@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" href="icon.ico">
     <meta charset="UTF-8">
-    <title>Python 执行服务示例</title>
+    <title>Python 线上编译器</title>
     <style>
         body {
             margin: 0;
@@ -52,9 +53,9 @@
     </style>
 </head>
 <body>
-    <h1>Python 执行服务示例</h1>
+    <h1>Python 线上编译器</h1>
     <div class="code-wrapper">
-        <textarea id="python-code" rows="10" placeholder="在此输入 Python 代码"></textarea>
+        <textarea id="python-code" rows="10" placeholder="在此输入 Python 代码" onkeydown="handleEnter(event)"></textarea>
         <button onclick="executePython()">执行 Python 代码</button>
     </div>
     <div class="result-wrapper">
@@ -62,9 +63,21 @@
         <pre id="result"></pre>
     </div>
     <p style="color:#16FF15 ;">作者：zyh</p>
+    <p style="color:#42b6c6 ;">本版本为基础版，不能进行引用库
     <p style="color:red;">警告，禁止进行任何违法的行为</p>
 
     <script>
+        function handleEnter(event) {
+            if (event.keyCode === 13 && event.ctrlKey) {
+                // 执行 Python 代码
+                executePython();
+            } else if (event.keyCode === 13 && !event.shiftKey) {
+                // 换行处理
+                event.preventDefault();
+                var textArea = document.getElementById("python-code");
+                textArea.value += "\n";
+            }
+        }
         function executePython() {
             var pythonCode = document.getElementById("python-code").value;
 
